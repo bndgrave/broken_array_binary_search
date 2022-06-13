@@ -10,47 +10,42 @@ def find_head(nums):
         else:
             return 0
     mid = len(nums) // 2
-    left, right = nums[0:mid], nums[mid:len(nums)]
     if nums[mid-1] < nums[mid] < nums[mid+1]:
-        if is_sorted(left):
-            return find_head(right) + mid
+        if is_sorted(nums[0:mid]):
+            return find_head(nums[mid:len(nums)]) + mid
         else:
-            return find_head(left) 
+            return find_head(nums[0:mid]) 
     if nums[mid-1] > nums[mid]:
         return mid
     if nums[mid] > nums[mid+1]:
         return mid + 1
 
-
 def broken_search(nums, target) -> int:
-    print(nums)
-    if len(nums) == 1 and nums[0] != target:
+    if len(nums) == 1 and nums[0] != target or len(nums) == 0:
         return -1
-    if not is_sorted(nums):
-        head = find_head(nums)
-        return (
-            broken_search(nums[0:head], target) 
-            if nums[0] <= target <= nums[head-1]
-            else broken_search(nums[head:len(nums)], target) + head
-        )   
-    mid = len(nums) // 2 if len(nums) >= 2 else 0
+    head = find_head(nums) if not is_sorted(nums) else 0
+    mid = head if head else len(nums) // 2
+    mid = mid if len(nums) >=2 else 0
+    # print(nums, mid)
     if nums[mid] == target:
         return mid
-    if nums[-1] < target:
+    search_result = (
+        broken_search(nums[0:mid], target) if nums[0] <= target <= nums[mid-1]
+        else broken_search(nums[mid+1:len(nums)], target)
+    )   
+    if search_result >= 0:
+        if nums[0] <= target <= nums[mid-1]:
+            return search_result
+        else:
+            return search_result + mid + 1
+    else:
         return -1
-    return (
-        broken_search(nums[0:mid], target) if nums[mid] > target
-        else broken_search(nums[mid+1:len(nums)], target) + mid + 1
-    )
 
 def test():
     arr = [19, 21, 100, 101, 1, 4, 5, 7, 12, 15]
-    # arr = [2, 3, 4, 5, 6, 7, 8, 1, 2]
-    arr1 = broken_search(arr, 6)
-    # arr = [1, 2]
-    # assert broken_search(arr, 5) == 6
-    # index = broken_search(arr, 101)
-    print(arr1)
+    assert broken_search(arr, 5) == 6
+    # print(broken_search(arr, 15))
 
-if __name__ == '__main__':
-    test()
+
+# if __name__ == '__main__':
+#     test()
