@@ -23,35 +23,26 @@ def find_head(nums):
 def broken_search(nums, target) -> int:
     array = nums
     index = 0
-    head = find_head(array) if not is_sorted(array) else None
-    if head:
-        array = nums[0:head] if nums[0] < target < nums[head] else nums[head:len(nums)]
-        
-    if array[-1] < target:
-        return -1    
     while len(array) > 1:
-        mid = len(array) // 2 if len(nums) >= 2 else 0
+        mid = find_head(array) if not is_sorted(array) else len(array) // 2
+        mid = mid if len(array) >=2 else 0
         if array[mid] == target:
             index = index + mid
             break
-        if array[mid] < target:
-            array = array[mid+1:len(array)]
-            index = index + mid
-        else:
+        if array[0] <= target <= array[mid-1]:
             array = array[0:mid]
+        else:
+            array = array[mid+1:len(array)]
+            index = index + mid + 1
     if len(array) == 1 and array[0] != target:
         return -1
-    if index >= len(nums)-1:
-        return len(nums) - index - 1
-    else:
-        return index
-
+    return index
 
 def test():
     arr = [19, 21, 100, 101, 1, 4, 5, 7, 12, 15]
-    # assert broken_search(arr, 5) == 6
-    print(broken_search(arr, 21))
+    assert broken_search(arr, 5) == 6
+    # print(broken_search(arr, 101))
 
 
-if __name__ == '__main__':
-    test()
+# if __name__ == '__main__':
+#     test()

@@ -26,7 +26,6 @@ def broken_search(nums, target) -> int:
     head = find_head(nums) if not is_sorted(nums) else 0
     mid = head if head else len(nums) // 2
     mid = mid if len(nums) >=2 else 0
-    # print(nums, mid)
     if nums[mid] == target:
         return mid
     search_result = (
