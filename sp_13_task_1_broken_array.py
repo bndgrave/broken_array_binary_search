@@ -1,15 +1,20 @@
-def is_sorted(nums):
-    if len(nums) > 1:
-        return nums[0] < nums[-1]
-    return True
+# def is_sorted(nums):
+#     if len(nums) > 1:
+#         return nums[0] < nums[-1]
+#     return True
 
 def broken_search(nums, target) -> int:
-    if len(nums) == 1 and nums[0] != target or len(nums) == 0:
-        return -1
-    mid = len(nums) // 2 if len(nums) >=2 else 0
+    if len(nums) == 1:
+        if nums[0] == target:
+            return 0
+        else:
+            return -1
+    # if len(nums) == 0:
+    #     return -1
+    mid = len(nums) // 2
     if nums[mid] == target:
         return mid
-    if is_sorted(nums[0:mid]):
+    if nums[0] < nums[-1]: # is_sorted(nums[0:mid]):
         if nums[0] <= target <= nums[mid-1]:
             search_result = broken_search(nums[0:mid], target)
             return search_result if search_result >= 0 else -1
