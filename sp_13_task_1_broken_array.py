@@ -1,3 +1,5 @@
+# Номер посылки - 69056924
+
 def broken_search(nums, target) -> int:
     start = 0
     end = len(nums) - 1
@@ -24,5 +26,5 @@ def test():
     assert broken_search(arr, 5) == 6
 
 
-# if __name__ == '__main__':
-#     test()
+if __name__ == '__main__':
+    test()
