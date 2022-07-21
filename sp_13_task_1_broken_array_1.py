@@ -38,11 +38,12 @@ def broken_search(nums, target) -> int:
         return -1
     return index
 
+
 def test():
     arr = [19, 21, 100, 101, 1, 4, 5, 7, 12, 15]
     assert broken_search(arr, 5) == 6
-    # print(broken_search(arr, 101))
+    print(broken_search(arr, 101))
 
 
-# if __name__ == '__main__':
-#     test()
+if __name__ == '__main__':
+    test()

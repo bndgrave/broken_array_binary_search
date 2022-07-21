@@ -1,5 +1,3 @@
-# Номер посылки - 69067766
-
 def broken_search(nums, target) -> int:
     start = 0
     end = len(nums) - 1
@@ -20,3 +18,13 @@ def broken_search(nums, target) -> int:
             else:
                 end = mid -1
     return index
+
+
+def test():
+    arr = [19, 21, 100, 101, 1, 4, 5, 7, 12, 15]
+    assert broken_search(arr, 5) == 6
+    print(broken_search(arr, 101))
+
+
+if __name__ == '__main__':
+    test()
